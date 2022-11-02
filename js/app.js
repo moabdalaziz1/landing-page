@@ -18,9 +18,6 @@
  * Great to have comments before crucial code sections within the procedure.
  */
 
-
-
-
 // main Variables
 const ul = document.getElementById('navbar__list');
 const sections = document.querySelectorAll('main section');
@@ -56,14 +53,15 @@ const scrollLinks = document.querySelectorAll('#navbar__list li');
 // Loop over the navbar items and do magic!
 scrollLinks.forEach((link) => {
   link.addEventListener('click', (e) => {
+    // prevent default
+    e.preventDefault();
     // Scroll to the Section that clicked
     const id = e.currentTarget.getAttribute('id').slice(1);
     const sectionElement = document.getElementById(id);
-    window.scrollTo({
+    window.scrollBy({
       left: 0,
-      top: sectionElement.getBoundingClientRect().y + window.scrollY,
+      top: sectionElement.getBoundingClientRect().y, 
+      behavior: 'smooth',
     });
   });
 });
-
-
