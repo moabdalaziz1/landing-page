@@ -21,6 +21,7 @@
 // main Variables
 const ul = document.getElementById('navbar__list');
 const sections = document.querySelectorAll('main section');
+console.log(sections[0].getBoundingClientRect().y);
 
 // build the navbar
 for (let i = 0; i < sections.length; i++) {
@@ -32,21 +33,6 @@ for (let i = 0; i < sections.length; i++) {
   // li.appendChild(anchor);
   ul.appendChild(li);
 }
-
-// Add class 'active' to section when near top of viewport
-function addActiveClass() {
-  for (let i = 0; i < sections.length; i++) {
-    if (
-      sections[i].getBoundingClientRect().y <= 100 &&
-      sections[i].getBoundingClientRect().y >= -200
-    ) {
-      sections[i].classList.add('active');
-    } else {
-      sections[i].classList.remove('active');
-    }
-  }
-}
-document.addEventListener('scroll', addActiveClass);
 
 // Scroll to anchor ID using scrollTO event
 const scrollLinks = document.querySelectorAll('#navbar__list li');
@@ -60,8 +46,27 @@ scrollLinks.forEach((link) => {
     const sectionElement = document.getElementById(id);
     window.scrollBy({
       left: 0,
-      top: sectionElement.getBoundingClientRect().y, 
+      top: sectionElement.getBoundingClientRect().y,
       behavior: 'smooth',
     });
   });
 });
+
+// Add class 'active' to section when near top of viewport
+function addActiveClass() {
+  for (let i = 0; i < sections.length; i++) {
+    if (
+      sections[i].getBoundingClientRect().y <= 150 &&
+      sections[i].getBoundingClientRect().y >= -470
+    ) {
+      sections[i].classList.add('active');
+      // Adding (active__item) class for the the navigation items
+      scrollLinks[i].classList.add('active__item');
+    } else {
+      sections[i].classList.remove('active');
+      // Removing (active__item) class for the the navigation items
+      scrollLinks[i].classList.remove('active__item');
+    }
+  }
+}
+document.addEventListener('scroll', addActiveClass);
